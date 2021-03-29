@@ -7,22 +7,24 @@ const Fetch = ({ children, url, onFetch, onFetchSuccess, onFetchFailure }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setIsFetching(true);
     setResponseData(null);
     setError(null);
-    onFetch && onFetch();
-    fetch(url, {})
-      .then((res) => res.json())
-      .then((data) => {
-        setIsFetching(false);
-        setResponseData(data);
-        onFetchSuccess && onFetchSuccess(data);
-      })
-      .catch((err) => {
-        setIsFetching(false);
-        setError(err);
-        onFetchFailure && onFetchFailure(err);
-      });
+    if (url) {
+      setIsFetching(true);
+      onFetch && onFetch();
+      fetch(url, {})
+        .then((res) => res.json())
+        .then((data) => {
+          setIsFetching(false);
+          setResponseData(data);
+          onFetchSuccess && onFetchSuccess(data);
+        })
+        .catch((err) => {
+          setIsFetching(false);
+          setError(err);
+          onFetchFailure && onFetchFailure(err);
+        });
+    }
   }, [url, onFetch, onFetchSuccess, onFetchFailure]);
 
   return children && children({ responseData, isFetching, error });
