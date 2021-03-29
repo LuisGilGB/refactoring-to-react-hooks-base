@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 const Fetch = ({ children, url, onFetch, onFetchSuccess, onFetchFailure }) => {
@@ -25,10 +25,11 @@ const Fetch = ({ children, url, onFetch, onFetchSuccess, onFetchFailure }) => {
       });
   }, [url]);
 
-  return <>{children}</>;
+  return children && children({responseData, isFetching, error});
 };
 
 Fetch.propTypes = {
+  children: PropTypes.func,
   url: PropTypes.string.isRequired,
   onFetch: PropTypes.func,
   onFetchSuccess: PropTypes.func,

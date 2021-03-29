@@ -1,12 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Select = ({ options = [], onChange }) => {
+const Select = ({
+  options = [],
+  valueKey = "value",
+  labelKey = "label",
+  onChange,
+  ...otherProps
+}) => {
   return (
-    <select onChange={onChange}>
+    <select {...otherProps} onChange={onChange}>
       <option value="">--</option>
-      {options.map(({ label, value }) => (
-        <option key={value} value={value}>
+      {(options || []).map(({ [labelKey]: label, [valueKey]: value }, i) => (
+        <option key={value || `option-${i}`} value={value}>
           {label}
         </option>
       ))}
@@ -17,10 +23,12 @@ const Select = ({ options = [], onChange }) => {
 Select.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
+      value: PropTypes.string,
+      label: PropTypes.string,
     })
   ).isRequired,
+  valueKey: PropTypes.string,
+  labelKey: PropTypes.string,
   onChange: PropTypes.func,
 };
 
