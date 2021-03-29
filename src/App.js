@@ -20,7 +20,7 @@ const App = () => {
   const [url, setUrl] = useState("");
 
   const onSelectChange = ({ target }) =>
-    setUrl(target.value ? `/${target.value}/` : "");
+    setUrl(target.value ? `${process.env.REACT_APP_BASE_URL}/${target.value}/` : "");
 
   // return <DashboardShell />;
   return (
