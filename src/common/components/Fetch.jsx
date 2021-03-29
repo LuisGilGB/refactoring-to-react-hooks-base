@@ -23,9 +23,9 @@ const Fetch = ({ children, url, onFetch, onFetchSuccess, onFetchFailure }) => {
         setError(err);
         onFetchFailure && onFetchFailure(err);
       });
-  }, [url]);
+  }, [url, onFetch, onFetchSuccess, onFetchFailure]);
 
-  return children && children({responseData, isFetching, error});
+  return children && children({ responseData, isFetching, error });
 };
 
 Fetch.propTypes = {
