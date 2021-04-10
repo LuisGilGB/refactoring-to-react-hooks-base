@@ -1,33 +1,18 @@
-import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import useFetch from "../hooks/useFetch";
 
 const Fetch = ({ children, url, onFetch, onFetchSuccess, onFetchFailure }) => {
-  const [isFetching, setIsFetching] = useState(false);
-  const [responseData, setResponseData] = useState(null);
-  const [error, setError] = useState(null);
+  const { isFetching, success, error, responseData, responseError } = useFetch({
+    url,
+    onFetch,
+    onFetchSuccess,
+    onFetchFailure,
+  });
 
-  useEffect(() => {
-    setResponseData(null);
-    setError(null);
-    if (url) {
-      setIsFetching(true);
-      onFetch && onFetch();
-      fetch(url, {})
-        .then((res) => res.json())
-        .then((data) => {
-          setIsFetching(false);
-          setResponseData(data);
-          onFetchSuccess && onFetchSuccess(data);
-        })
-        .catch((err) => {
-          setIsFetching(false);
-          setError(err);
-          onFetchFailure && onFetchFailure(err);
-        });
-    }
-  }, [url, onFetch, onFetchSuccess, onFetchFailure]);
-
-  return children && children({ responseData, isFetching, error });
+  return (
+    children &&
+    children({ responseData, success, error, isFetching, responseError })
+  );
 };
 
 Fetch.propTypes = {
