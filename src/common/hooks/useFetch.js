@@ -73,7 +73,7 @@ const useFetch = ({ url, onFetch, onFetchSuccess, onFetchFailure }) => {
             onFetchFailure(res.statusText);
             throw Error(res.statusText);
           }
-          res.json();
+          return res.json();
         })
         .then((data) => {
           dispatch(actionCreators.onSuccess(data));
