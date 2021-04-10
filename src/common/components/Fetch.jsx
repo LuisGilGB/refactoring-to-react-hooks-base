@@ -1,5 +1,7 @@
+import React from "react";
 import PropTypes from "prop-types";
 import useFetch from "../hooks/useFetch";
+import Loading from "./Loading";
 
 const Fetch = ({ children, url, onFetch, onFetchSuccess, onFetchFailure }) => {
   const { isFetching, success, error, responseData, responseError } = useFetch({
@@ -9,9 +11,11 @@ const Fetch = ({ children, url, onFetch, onFetchSuccess, onFetchFailure }) => {
     onFetchFailure,
   });
 
-  return (
+  return isFetching ? (
+    <Loading />
+  ) : (
     children &&
-    children({ responseData, success, error, isFetching, responseError })
+      children({ responseData, success, error, isFetching, responseError })
   );
 };
 
