@@ -16,9 +16,9 @@ const actionCreators = {
     type: ACTIONS.SUCCESS_EVENT,
     payload: { responseData },
   }),
-  onError: (responseError) => ({
+  onError: (errorMessage) => ({
     type: ACTIONS.ERROR_EVENT,
-    payload: { responseError },
+    payload: { errorMessage },
   }),
   cleanState: () => ({
     type: ACTIONS.CLEAN_STATE,
@@ -31,7 +31,7 @@ const initialState = {
   success: false,
   error: false,
   responseData: null,
-  responseError: null,
+  errorMessage: null,
 };
 
 const fetchReducer = (state, { type, payload }) => {
@@ -46,14 +46,14 @@ const fetchReducer = (state, { type, payload }) => {
       success: true,
       error: false,
       responseData: payload.responseData,
-      responseError: initialState.responseError
+      errorMessage: initialState.errorMessage,
     }),
     [ACTIONS.ERROR_EVENT]: () => ({
       isFetching: false,
       success: false,
       error: true,
-      responseData: initialState.responseError,
-      responseError: initialState.responseError
+      responseData: initialState.responseData,
+      errorMessage: initialState.errorMessage,
     }),
     [ACTIONS.CLEAN_STATE]: () => initialState,
   };
@@ -68,14 +68,20 @@ const useFetch = ({ url, onFetch, onFetchSuccess, onFetchFailure }) => {
       dispatch(actionCreators.doFetch());
       onFetch && onFetch();
       fetch(url, {})
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            onFetchFailure(res.statusText);
+            throw Error(res.statusText);
+          }
+          return res.json();
+        })
         .then((data) => {
           dispatch(actionCreators.onSuccess(data));
           onFetchSuccess && onFetchSuccess(data);
         })
         .catch((err) => {
           dispatch(actionCreators.onError(err));
-          onFetchFailure && onFetchFailure(err);
+          onFetchFailure && onFetchFailure(err.message);
         });
     } else {
       dispatch(actionCreators.cleanState());
