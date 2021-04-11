@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
 import { StateContext } from "../../context/StateContext";
 
 const SummaryContainer = () => {
@@ -16,11 +15,6 @@ const SummaryContainer = () => {
       </div>
     </div>
   );
-};
-
-SummaryContainer.propTypes = {
-  salesTotal: PropTypes.number.isRequired,
-  subscriptionsTotal: PropTypes.number.isRequired
 };
 
 export default SummaryContainer;

@@ -18,7 +18,7 @@ const DashboardShell = (props) => {
   const handleSelectChange = (event) => {
     const selectedLabel = event.target.selectedOptions[0].label;
     fetchDataset(event.target.value);
-    setSelectedLabel({ selectedLabel });
+    setSelectedLabel(selectedLabel);
   };
 
   const buildSelect = () => {
