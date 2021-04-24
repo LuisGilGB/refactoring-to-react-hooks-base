@@ -11,16 +11,16 @@ describe("Tests Select feature on dashboard view", () => {
   it("The default value is selected at start", () => {
     cy.get('[data-cy="select"]').invoke("val").should("equal", "");
   });
-  it("Selecting the Sales option sets the sales endpoint as its value", () => {
+  it("Selecting the Sales option sets sales as its value", () => {
     cy.get('[data-cy="select"]')
       .select("Sales")
       .invoke("val")
-      .should("equal", "/api/sales/");
+      .should("equal", "sales");
   });
-  it("Selecting the Subscriptions option sets the subscriptions endpoint as its value", () => {
+  it("Selecting the Subscriptions option sets subscriptions as its value", () => {
     cy.get('[data-cy="select"]')
       .select("Subscriptions")
       .invoke("val")
-      .should("equal", "/api/subscriptions/");
+      .should("equal", "subscriptions");
   });
 });
