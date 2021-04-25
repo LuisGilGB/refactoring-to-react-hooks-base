@@ -1,4 +1,8 @@
 describe("Tests Select feature on dashboard view", () => {
+  before(() => {
+    cy.intercept('/api/sales', { fixtures: 'stubs/sales.json' }).as('getSales');
+    cy.intercept('/api/subscriptions', { fixtures: 'stubs/subscriptions.json' }).as('getSubscriptions');
+  });
   beforeEach(() => {
     cy.visit("");
   });
@@ -22,5 +26,12 @@ describe("Tests Select feature on dashboard view", () => {
       .select("Subscriptions")
       .invoke("val")
       .should("equal", "subscriptions");
+  });
+  it("Displays the right sales and subscriptions values in SummaryContainer (truncated stubs version)", () => {
+    cy.intercept('/api/sales', { fixtures: 'stubs/sales.json' }).as('getSales');
+    cy.intercept('/api/subscriptions', { fixtures: 'stubs/subscriptions.json' }).as('getSubscriptions');
+    cy.wait(['@getSales', '@getSubscriptions']);
+    cy.get('[data-cy="sales-summary"]').contains('30');
+    cy.get('[data-cy="subscriptions-summary"]').contains('41');
   });
 });
