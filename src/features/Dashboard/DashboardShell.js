@@ -10,13 +10,12 @@ import { OPTIONS_FOR_SELECT } from "./consts";
 
 const DashboardShell = () => {
   const [selectedLabel, setSelectedLabel] = useState("");
-  const { fetchDataset } = useContext(StateContext);
+  const { setSelection } = useContext(StateContext);
 
   const handleSelectChange = (event) => {
     const selectedSet = event.target.value;
     const selectedLabel = event.target.selectedOptions[0].label;
-    const setEndpoint = `${process.env.REACT_APP_BASE_URL}/${selectedSet}/`;
-    fetchDataset(setEndpoint);
+    setSelection(selectedSet);
     setSelectedLabel(selectedLabel);
   };
 

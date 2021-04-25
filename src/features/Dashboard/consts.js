@@ -8,3 +8,6 @@ export const OPTIONS_FOR_SELECT = [
     value: "subscriptions",
   },
 ];
+
+export const SALES_ENDPOINT = '/api/sales';
+export const SUBSCRIPTIONS_ENDPOINT = '/api/subscriptions';
