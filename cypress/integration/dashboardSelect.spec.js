@@ -1,7 +1,7 @@
 describe("Tests Select feature on dashboard view", () => {
   before(() => {
-    cy.route('/api/sales', { fixtures: 'stubs/sales.json' });
-    cy.route('/api/subscriptions', { fixtures: 'stubs/subscriptions.json' });
+    cy.intercept('/api/sales', { fixtures: 'stubs/sales.json' });
+    cy.intercept('/api/subscriptions', { fixtures: 'stubs/subscriptions.json' });
   });
   beforeEach(() => {
     cy.visit("");
@@ -28,8 +28,9 @@ describe("Tests Select feature on dashboard view", () => {
       .should("equal", "subscriptions");
   });
   it("Displays the right sales and subscriptions values in SummaryContainer (truncated stubs version)", () => {
-    cy.route('/api/sales', { fixtures: 'stubs/truncatedSales.json' }).as('getSales');
-    cy.route('/api/subscriptions', { fixtures: 'stubs/truncatedSubscriptions.json' }).as('getSubscriptions');
+    cy.intercept('/api/sales', { fixtures: 'stubs/truncatedSales.json' }).as('getSales');
+    cy.intercept('/api/subscriptions', { fixtures: 'stubs/truncatedSubscriptions.json' }).as('getSubscriptions');
+    cy.wait(2000)
     cy.get('[data-cy="sales-summary"]').contains('30');
     cy.get('[data-cy="subscriptions-summary"]').contains('41');
   });
