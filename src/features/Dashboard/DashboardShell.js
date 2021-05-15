@@ -6,48 +6,36 @@ import Main from "../../common/components/Main";
 import SummaryContainer from "./SummaryContainer";
 import Select from "../../common/components/Select";
 import { StateContext } from "../../context/StateContext";
+import { OPTIONS_FOR_SELECT } from "./consts";
 
-const DashboardShell = (props) => {
+const DashboardShell = () => {
   const [selectedLabel, setSelectedLabel] = useState("");
-  const { fetchDataset } = useContext(StateContext);
-
-  // componentDidMount() {
-  //   this.props.fetchDataset(`${process.env.REACT_APP_BASE_URL}/totals/`);
-  // }
+  const { setSelection } = useContext(StateContext);
 
   const handleSelectChange = (event) => {
+    const selectedSet = event.target.value;
     const selectedLabel = event.target.selectedOptions[0].label;
-    fetchDataset(event.target.value);
+    setSelection(selectedSet);
     setSelectedLabel(selectedLabel);
   };
 
-  const buildSelect = () => {
-    const optionsForSelect = [
-      { label: "Sales", value: `${process.env.REACT_APP_BASE_URL}/sales/` },
-      {
-        label: "Subscriptions",
-        value: `${process.env.REACT_APP_BASE_URL}/subscriptions/`,
-      },
-    ];
-
-    return (
-      <>
-        <label htmlFor="select-product">Please select a chart:</label>
-        <div className="field">
-          <Select options={optionsForSelect} onChange={handleSelectChange} />
-          <div className="chevron-wrapper flex">
-            <svg
-              className="chevron"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-            </svg>
-          </div>
+  const buildSelect = () => (
+    <>
+      <label htmlFor="select-product">Please select a chart:</label>
+      <div className="field">
+        <Select options={OPTIONS_FOR_SELECT} onChange={handleSelectChange} />
+        <div className="chevron-wrapper flex">
+          <svg
+            className="chevron"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+          </svg>
         </div>
-      </>
-    );
-  };
+      </div>
+    </>
+  );
 
   return (
     <Layout>
