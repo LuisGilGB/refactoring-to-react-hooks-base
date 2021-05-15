@@ -9,7 +9,7 @@ const Select = ({
   ...otherProps
 }) => {
   return (
-    <select {...otherProps} onChange={onChange}>
+    <select {...otherProps} data-cy="select" onChange={onChange}>
       <option value="">--</option>
       {(options || []).map(({ [labelKey]: label, [valueKey]: value }, i) => (
         <option key={value || `option-${i}`} value={value}>
