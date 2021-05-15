@@ -5,7 +5,8 @@ const loadMirage = () => import("miragejs");
 
 export const loadMirageInDev = () =>
   new Promise((resolve, reject) => {
-    if (process.env.NODE_ENV === "development") {
+    // window.Cypress tells us if we are in the Cypress testing environment.
+    if (process.env.NODE_ENV === "development" && !window.Cypress) {
       loadMirage()
         .then(({ createServer }) => {
           resolve(
