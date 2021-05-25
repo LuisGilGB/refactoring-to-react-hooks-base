@@ -35,6 +35,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^7.0.0",
     "cypress": "^7.3.0",
     "miragejs": "^0.1.40",
     "prop-types": "^15.7.2",

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createContext } from "react";
-import useFetch from "../common/hooks/useFetch";
+import useFetch from "../common/hooks/useFetch/useFetch";
 import {
   SALES_ENDPOINT,
   SUBSCRIPTIONS_ENDPOINT,

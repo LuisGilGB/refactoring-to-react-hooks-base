@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+import { INITIAL_ERROR, INITIAL_ERROR_MESSAGE, INITIAL_IS_FETCHING, INITIAL_RESPONSE_DATA, INITIAL_SUCCESS } from "./consts";
 
 const ACTIONS = {
   FETCH_EVENT: "FETCH_EVENT",
@@ -27,11 +28,11 @@ const actionCreators = {
 };
 
 const initialState = {
-  isFetching: false,
-  success: false,
-  error: false,
-  responseData: null,
-  errorMessage: null,
+  isFetching: INITIAL_IS_FETCHING,
+  success: INITIAL_SUCCESS,
+  error: INITIAL_ERROR,
+  responseData: INITIAL_RESPONSE_DATA,
+  errorMessage: INITIAL_ERROR_MESSAGE,
 };
 
 const fetchReducer = (state, { type, payload }) => {
