@@ -37,6 +37,7 @@
   "devDependencies": {
     "@testing-library/react-hooks": "^7.0.0",
     "cypress": "^7.3.0",
+    "jest-fetch-mock": "^3.0.3",
     "miragejs": "^0.1.40",
     "prop-types": "^15.7.2",
     "time-series-data-generator": "^0.1.5"

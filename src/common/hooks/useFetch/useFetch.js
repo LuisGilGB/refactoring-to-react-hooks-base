@@ -68,7 +68,7 @@ const useFetch = ({ url, onFetch, onFetchSuccess, onFetchFailure }) => {
     if (url) {
       dispatch(actionCreators.doFetch());
       onFetch && onFetch();
-      fetch(url, {})
+      fetch(url)
         .then((res) => {
           if (!res.ok) {
             onFetchFailure(res.statusText);
