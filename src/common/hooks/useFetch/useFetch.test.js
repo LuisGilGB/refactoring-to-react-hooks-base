@@ -45,7 +45,7 @@ beforeEach(() => {
   fetch.resetMocks();
 });
 
-test("Should initialize the state with the right initialization values (checks initial values from consts files)", async () => {
+test("Should initialize the state with the right initialization values (checks initial values from consts files)", () => {
   const { result } = renderHook(() =>
     useFetch({ url: TEST_URL })
   );
@@ -57,7 +57,7 @@ test("Should initialize the state with the right initialization values (checks i
   expect(result.current.errorMessage).toBe(INITIAL_ERROR_MESSAGE);
 });
 
-test("Should initialize the state with the right initialization values (checks raw values such as null or false)", async () => {
+test("Should initialize the state with the right initialization values (checks raw values such as null or false)", () => {
   const { result } = renderHook(() =>
     useFetch({ url: TEST_URL })
   );

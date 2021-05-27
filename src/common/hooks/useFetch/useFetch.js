@@ -1,5 +1,11 @@
-import { useCallback, useReducer } from "react";
-import { INITIAL_ERROR, INITIAL_ERROR_MESSAGE, INITIAL_IS_FETCHING, INITIAL_RESPONSE_DATA, INITIAL_SUCCESS } from "./consts";
+import { useCallback, useMemo, useReducer } from "react";
+import {
+  INITIAL_ERROR,
+  INITIAL_ERROR_MESSAGE,
+  INITIAL_IS_FETCHING,
+  INITIAL_RESPONSE_DATA,
+  INITIAL_SUCCESS,
+} from "./consts";
 
 const ACTIONS = {
   FETCH_EVENT: "FETCH_EVENT",
@@ -89,7 +95,15 @@ const useFetch = ({ url, onFetch, onFetchSuccess, onFetchFailure }) => {
     }
   }, [url, onFetch, onFetchSuccess, onFetchFailure]);
 
-  return {...state, update};
+  const returnValue = useMemo(
+    () => ({
+      ...state,
+      update,
+    }),
+    [state, update]
+  );
+
+  return returnValue;
 };
 
 export default useFetch;
