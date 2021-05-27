@@ -46,42 +46,30 @@ beforeEach(() => {
 });
 
 test("Should initialize the state with the right initialization values (checks initial values from consts files)", async () => {
-  const { result, waitForNextUpdate } = renderHook(() =>
+  const { result } = renderHook(() =>
     useFetch({ url: TEST_URL })
   );
 
-  act(() => {
-    result.current.update();
-  });
-
-  await waitForNextUpdate();
-
-  expect(result.all[0].isFetching).toBe(INITIAL_IS_FETCHING);
-  expect(result.all[0].success).toBe(INITIAL_SUCCESS);
-  expect(result.all[0].error).toBe(INITIAL_ERROR);
-  expect(result.all[0].responseData).toBe(INITIAL_RESPONSE_DATA);
-  expect(result.all[0].errorMessage).toBe(INITIAL_ERROR_MESSAGE);
+  expect(result.current.isFetching).toBe(INITIAL_IS_FETCHING);
+  expect(result.current.success).toBe(INITIAL_SUCCESS);
+  expect(result.current.error).toBe(INITIAL_ERROR);
+  expect(result.current.responseData).toBe(INITIAL_RESPONSE_DATA);
+  expect(result.current.errorMessage).toBe(INITIAL_ERROR_MESSAGE);
 });
 
 test("Should initialize the state with the right initialization values (checks raw values such as null or false)", async () => {
-  const { result, waitForNextUpdate } = renderHook(() =>
+  const { result } = renderHook(() =>
     useFetch({ url: TEST_URL })
   );
 
-  act(() => {
-    result.current.update();
-  });
-
-  await waitForNextUpdate();
-
-  expect(result.all[0].isFetching).toBe(false);
-  expect(result.all[0].success).toBe(false);
-  expect(result.all[0].error).toBe(false);
-  expect(result.all[0].responseData).toBe(null);
-  expect(result.all[0].errorMessage).toBe(null);
+  expect(result.current.isFetching).toBe(false);
+  expect(result.current.success).toBe(false);
+  expect(result.current.error).toBe(false);
+  expect(result.current.responseData).toBe(null);
+  expect(result.current.errorMessage).toBe(null);
 });
 
-test("Should return isFetching right after providing a url", async () => {
+test("Should return isFetching right after calling update function", async () => {
   const { result, waitForNextUpdate } = renderHook(() =>
     useFetch({ url: TEST_URL })
   );
