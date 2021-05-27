@@ -9,10 +9,16 @@ const Select = ({
   ...otherProps
 }) => {
   return (
-    <select {...otherProps} data-cy="select" onChange={onChange}>
-      <option value="">--</option>
+    <select {...otherProps} data-testid="select" onChange={onChange}>
+      <option value="" data-testid="select-default-option">
+        --
+      </option>
       {(options || []).map(({ [labelKey]: label, [valueKey]: value }, i) => (
-        <option key={value || `option-${i}`} value={value}>
+        <option
+          data-testid="select-option"
+          key={value || `option-${i}`}
+          value={value}
+        >
           {label}
         </option>
       ))}
