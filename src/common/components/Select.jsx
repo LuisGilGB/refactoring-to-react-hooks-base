@@ -9,7 +9,7 @@ const Select = ({
   ...otherProps
 }) => {
   return (
-    <select {...otherProps} data-cy="select" onChange={onChange}>
+    <select {...otherProps} data-testid="select" onChange={onChange}>
       <option value="" data-testid="select-default-option">
         --
       </option>
