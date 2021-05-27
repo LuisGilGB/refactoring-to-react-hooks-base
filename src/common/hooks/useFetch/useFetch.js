@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useCallback, useReducer } from "react";
 import { INITIAL_ERROR, INITIAL_ERROR_MESSAGE, INITIAL_IS_FETCHING, INITIAL_RESPONSE_DATA, INITIAL_SUCCESS } from "./consts";
 
 const ACTIONS = {
@@ -64,7 +64,7 @@ const fetchReducer = (state, { type, payload }) => {
 const useFetch = ({ url, onFetch, onFetchSuccess, onFetchFailure }) => {
   const [state, dispatch] = useReducer(fetchReducer, initialState);
 
-  useEffect(() => {
+  const update = useCallback(() => {
     if (url) {
       dispatch(actionCreators.doFetch());
       onFetch && onFetch();
@@ -89,7 +89,7 @@ const useFetch = ({ url, onFetch, onFetchSuccess, onFetchFailure }) => {
     }
   }, [url, onFetch, onFetchSuccess, onFetchFailure]);
 
-  return state;
+  return {...state, update};
 };
 
 export default useFetch;

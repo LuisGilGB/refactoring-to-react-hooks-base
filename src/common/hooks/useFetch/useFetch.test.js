@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { act, renderHook } from "@testing-library/react-hooks";
 import { SALES_ENDPOINT } from "../../../features/Dashboard/consts";
 import {
   INITIAL_ERROR,
@@ -37,16 +37,22 @@ const SALES_MOCK = {
       amount: 337,
       timestamp: "2020-01-02T16:30:41.000Z",
     },
-  ]
+  ],
 };
 const SUCCESFUL_SALES_FETCH_MOCK = JSON.stringify(SALES_MOCK);
 
 beforeEach(() => {
   fetch.resetMocks();
-})
+});
 
 test("Should initialize the state with the right initialization values (checks initial values from consts files)", async () => {
-  const { result, waitForNextUpdate } = renderHook(() => useFetch({ url: TEST_URL }));
+  const { result, waitForNextUpdate } = renderHook(() =>
+    useFetch({ url: TEST_URL })
+  );
+
+  act(() => {
+    result.current.update();
+  });
 
   await waitForNextUpdate();
 
@@ -58,7 +64,13 @@ test("Should initialize the state with the right initialization values (checks i
 });
 
 test("Should initialize the state with the right initialization values (checks raw values such as null or false)", async () => {
-  const { result, waitForNextUpdate } = renderHook(() => useFetch({ url: TEST_URL }));
+  const { result, waitForNextUpdate } = renderHook(() =>
+    useFetch({ url: TEST_URL })
+  );
+
+  act(() => {
+    result.current.update();
+  });
 
   await waitForNextUpdate();
 
@@ -70,7 +82,13 @@ test("Should initialize the state with the right initialization values (checks r
 });
 
 test("Should return isFetching right after providing a url", async () => {
-  const { result, waitForNextUpdate } = renderHook(() => useFetch({ url: TEST_URL }));
+  const { result, waitForNextUpdate } = renderHook(() =>
+    useFetch({ url: TEST_URL })
+  );
+
+  act(() => {
+    result.current.update();
+  });
 
   await waitForNextUpdate();
 
@@ -82,11 +100,15 @@ test("Should return isFetching right after providing a url", async () => {
 });
 
 test("Should return response data and success true after receiving a successful response", async () => {
-  fetch.mockResponse(SUCCESFUL_SALES_FETCH_MOCK)
+  fetch.mockResponse(SUCCESFUL_SALES_FETCH_MOCK);
 
   const { result, waitForNextUpdate } = renderHook(() =>
     useFetch({ url: TEST_URL })
   );
+
+  act(() => {
+    result.current.update();
+  });
 
   await waitForNextUpdate();
 
@@ -105,6 +127,10 @@ test("Should return error message and error true after receiving an error respon
   const { result, waitForNextUpdate } = renderHook(() =>
     useFetch({ url: TEST_URL })
   );
+
+  act(() => {
+    result.current.update();
+  });
 
   await waitForNextUpdate();
 
